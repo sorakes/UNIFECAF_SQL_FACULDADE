@@ -1,3 +1,7 @@
+create database unifecaf_sql_faculdade;
+
+use unifecaf_sql_faculdade;
+
 CREATE TABLE notas (
     materia VARCHAR(100),
     valor_nota INT,
@@ -83,18 +87,15 @@ CREATE TABLE pagamento (
     fk_id_matricula INT,
     FOREIGN KEY (fk_id_matricula)
     REFERENCES matriculas (id_matricula)
-    ON DELETE SET NULL
 );
 
 CREATE TABLE recebem_alunos (
     fk_alunos_id_aluno INT,
     fk_notas_id_nota INT,
     FOREIGN KEY (fk_alunos_id_aluno)
-    REFERENCES alunos (id_aluno)
-    ON DELETE SET NULL,
+    REFERENCES alunos (id_aluno),
     FOREIGN KEY (fk_notas_id_nota)
-    REFERENCES notas (id_nota)
-    ON DELETE SET NULL,
+    REFERENCES notas (id_nota),
     PRIMARY KEY (fk_alunos_id_aluno, fk_notas_id_nota)
 );
 
@@ -102,11 +103,9 @@ CREATE TABLE cadastram (
     fk_matriculas_id_matricula INT,
     fk_alunos_id_aluno INT,
     FOREIGN KEY (fk_matriculas_id_matricula)
-    REFERENCES matriculas (id_matricula)
-    ON DELETE RESTRICT,
+    REFERENCES matriculas (id_matricula),
     FOREIGN KEY (fk_alunos_id_aluno)
-    REFERENCES alunos (id_aluno)
-    ON DELETE SET NULL,
+    REFERENCES alunos (id_aluno),
     PRIMARY KEY (fk_matriculas_id_matricula, fk_alunos_id_aluno)
 );
 
@@ -114,11 +113,9 @@ CREATE TABLE formam (
     fk_turmas_id_turma INT,
     fk_matriculas_id_matricula INT,
     FOREIGN KEY (fk_turmas_id_turma)
-    REFERENCES turmas (id_turma)
-    ON DELETE RESTRICT,
+    REFERENCES turmas (id_turma),
     FOREIGN KEY (fk_matriculas_id_matricula)
-    REFERENCES matriculas (id_matricula)
-    ON DELETE SET NULL,
+    REFERENCES matriculas (id_matricula),
     PRIMARY KEY (fk_turmas_id_turma, fk_matriculas_id_matricula)
 );
 
@@ -126,11 +123,9 @@ CREATE TABLE recebem_turmas (
     fk_turmas_id_turma INT,
     fk_cursos_id_curso INT,
     FOREIGN KEY (fk_turmas_id_turma)
-    REFERENCES turmas (id_turma)
-    ON DELETE SET NULL,
+    REFERENCES turmas (id_turma),
     FOREIGN KEY (fk_cursos_id_curso)
-    REFERENCES cursos (id_curso)
-    ON DELETE SET NULL,
+    REFERENCES cursos (id_curso),
     PRIMARY KEY (fk_turmas_id_turma, fk_cursos_id_curso)
 );
 
@@ -138,11 +133,9 @@ CREATE TABLE contem (
     fk_cursos_id_curso INT,
     fk_materias_id_materia INT,
     FOREIGN KEY (fk_cursos_id_curso)
-    REFERENCES cursos (id_curso)
-    ON DELETE SET NULL,
+    REFERENCES cursos (id_curso),
     FOREIGN KEY (fk_materias_id_materia)
-    REFERENCES materias (id_materia)
-    ON DELETE SET NULL,
+    REFERENCES materias (id_materia),
     PRIMARY KEY (fk_cursos_id_curso, fk_materias_id_materia)
 );
 
@@ -151,14 +144,11 @@ CREATE TABLE fazem (
     fk_registros_id_registro INT,
     fk_alunos_id_aluno INT,
     FOREIGN KEY (fk_professores_id_professor)
-    REFERENCES professores (id_professor)
-    ON DELETE NO ACTION,
+    REFERENCES professores (id_professor),
     FOREIGN KEY (fk_registros_id_registro)
-    REFERENCES registros (id_registro)
-    ON DELETE RESTRICT,
+    REFERENCES registros (id_registro),
     FOREIGN KEY (fk_alunos_id_aluno)
-    REFERENCES alunos (id_aluno)
-    ON DELETE NO ACTION,
+    REFERENCES alunos (id_aluno),
     PRIMARY KEY (fk_professores_id_professor, fk_registros_id_registro, fk_alunos_id_aluno)
 );
 
@@ -166,25 +156,20 @@ CREATE TABLE recebem_professores (
     fk_professores_id_professor INT,
     fk_materias_id_materia INT,
     FOREIGN KEY (fk_professores_id_professor)
-    REFERENCES professores (id_professor)
-    ON DELETE RESTRICT,
+    REFERENCES professores (id_professor),
     FOREIGN KEY (fk_materias_id_materia)
-    REFERENCES materias (id_materia)
-    ON DELETE RESTRICT,
+    REFERENCES materias (id_materia),
     PRIMARY KEY (fk_professores_id_professor, fk_materias_id_materia)
 );
 
 ALTER TABLE registros ADD CONSTRAINT FK_registros_2
     FOREIGN KEY (fk_email_email_PK)
-    REFERENCES email (email_PK)
-    ON DELETE NO ACTION;
+    REFERENCES email (email_PK);
 
 ALTER TABLE registros ADD CONSTRAINT FK_registros_3
     FOREIGN KEY (fk_endereco_endereco_PK)
-    REFERENCES endereco (endereco_PK)
-    ON DELETE SET NULL;
+    REFERENCES endereco (endereco_PK);
 
 ALTER TABLE registros ADD CONSTRAINT FK_registros_4
     FOREIGN KEY (fk_telefone_telefone_PK)
-    REFERENCES telefone (telefone_PK)
-    ON DELETE NO ACTION;
+    REFERENCES telefone (telefone_PK);
